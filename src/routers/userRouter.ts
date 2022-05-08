@@ -17,15 +17,17 @@ userRouter.post("/signup", async (req, res) => {
     ires.success = "success";
     ires.statuscode = 200;
     ires.message = "Successfull registered";
+    ires.error = "";
     ires.data = responce;
-
-    return res.send(ires);
   } catch (err) {
+    ires.success = "Fail";
+    ires.statuscode = 400;
     ires.message = "email id already already in use";
     ires.error = err.message;
     ires.statuscode;
-    return res.send(ires);
   }
+
+  return res.send(ires);
 });
 
 userRouter.post("/signin", async (req, res) => {
@@ -61,6 +63,21 @@ userRouter.get("/validate", checkJWT, async (req, res) => {
 
     return res.send(ires);
   }
+});
+
+userRouter.get("/checkroom", async (req, res) => {
+  try {
+    const responce = await controller.check(req.body);
+    ires.success = "Success";
+    ires.statuscode = 200;
+    ires.message = "Room List";
+    ires.data = responce;
+  } catch (err) {
+    ires.success = "Fail";
+    ires.statuscode = 400;
+    ires.message = err.message;
+  }
+  return res.send(ires);
 });
 
 export default userRouter;

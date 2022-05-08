@@ -1,8 +1,14 @@
 import jwtWebToken from "../utils/utils";
 import signupPayload from "../interface/requests/signupPayload";
 import { IUser } from "../interface/responce/IUser";
-import { createUser, getUser, updateUser } from "../repository/user.repository";
+import {
+  createUser,
+  getUser,
+  updateUser,
+  checkRoom,
+} from "../repository/user.repository";
 import signinPayload from "../interface/requests/signinPayload";
+import addRoomPayload from "../interface/requests/roomPayload";
 
 export default class userService {
   public async createUser(body: signupPayload): Promise<IUser> {
@@ -21,7 +27,6 @@ export default class userService {
 
   public async getUser(body: signinPayload): Promise<IUser> {
     let user = await getUser({
-      username: body.username,
       email: body.email,
       usertype: body.usertype,
       password: body.password,
@@ -29,6 +34,18 @@ export default class userService {
     if (!user) throw new Error("User not found");
 
     await updateUser({ id: user.id }, { lastlogin: new Date() });
+
+    const token = jwtWebToken(user.id);
+
+    return { user, token };
+  }
+
+  public async checkRoom(body: any): Promise<IUser> {
+    let user = await getUser({ id: body.id });
+
+    user = await checkRoom(user.id);
+
+    if (!user) throw new Error();
 
     const token = jwtWebToken(user.id);
 

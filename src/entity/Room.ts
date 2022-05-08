@@ -1,9 +1,9 @@
-import { depositype } from "../enum/DepositType";
 import { amenitiestype } from "../enum/amenitiesType";
 import { flatetype } from "../enum/flateType";
 import { moveintype } from "../enum/moveInType";
 import { prefferencetype } from "../enum/prefferencetype";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./User";
 
 @Entity()
 export class Room {
@@ -58,4 +58,7 @@ export class Room {
     name: "graphic",
   })
   graphic: Buffer;
+
+  @ManyToOne(() => User, (user) => user.rooms)
+  user: User;
 }

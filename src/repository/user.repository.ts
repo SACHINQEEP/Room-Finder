@@ -23,3 +23,11 @@ export const updateUser = async function (
 ): Promise<UpdateResult> {
   return await repo().update(where, body);
 };
+
+export const checkRoom = async function (id: any): Promise<User> {
+  return await repo()
+    .createQueryBuilder("user")
+    .leftJoinAndSelect("user.rooms", "rooms")
+    .where("user.id =:rooms", { rooms: id })
+    .getOne();
+};

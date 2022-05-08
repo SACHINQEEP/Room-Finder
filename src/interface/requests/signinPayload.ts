@@ -2,7 +2,6 @@ import { Expose } from "class-transformer";
 import { IsDefined, IsString } from "class-validator";
 
 /**
- * "username": "sachinqeep",
  * "email":"patelsachinsp269@gmail.com",
  * "usertype":"User"
  * "password": "sachin@1330",
@@ -10,8 +9,6 @@ import { IsDefined, IsString } from "class-validator";
  */
 
 export default class signinPayload {
-  @Expose() @IsDefined() @IsString() username: string;
-
   @Expose() @IsDefined() @IsString() email: string;
 
   @Expose() @IsDefined() @IsString() usertype: string;

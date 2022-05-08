@@ -48,4 +48,42 @@ roomRouter.patch("/updateroom", async (req, res) => {
   }
 });
 
+roomRouter.delete("/deleteroom", async (req, res) => {
+  try {
+    const responce = await controller.deleteRoom(req.body);
+
+    ires.success = "Success";
+    ires.statuscode = 200;
+    ires.message = "Room Deleted";
+    ires.data = responce;
+
+    res.send(ires);
+  } catch (err) {
+    ires.success;
+    ires.statuscode;
+    ires.message = "Room not Found";
+    ires.error = err.message;
+
+    res.send(ires);
+  }
+});
+
+roomRouter.get("/ownersroom", async (req, res) => {
+  try {
+    const responce = await controller.checkRoom(req.body);
+    console.log(responce);
+    ires.success = "Success";
+    ires.statuscode = 200;
+    ires.message = "Rooms added By Owner";
+    ires.error = "";
+    ires.data = responce;
+  } catch (err) {
+    ires.success = "Fail";
+    ires.statuscode = 400;
+    ires.message = "Invalid User Id";
+    ires.error = err.message;
+  }
+  res.send(ires);
+});
+
 export default roomRouter;

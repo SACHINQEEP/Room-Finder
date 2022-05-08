@@ -1,6 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  Index,
+  OneToMany,
+  JoinColumn,
+} from "typeorm";
 import { userType } from "../enum/userType";
 import * as bcryptjs from "bcryptjs";
+import { Room } from "./Room";
 
 @Entity()
 export class User {
@@ -23,10 +31,7 @@ export class User {
   })
   usertype: string;
 
-  @Column()
-  age: number;
-
-  @Column()
+  @Column({ type: "bigint" })
   number: number;
 
   @Column({ unique: true })
@@ -52,4 +57,8 @@ export class User {
   checkIfUnencryptedPasswordIsValid(UnencryptedPassword: string) {
     return this.password == UnencryptedPassword;
   }
+
+  @OneToMany(() => Room, (room) => room.user)
+  @JoinColumn()
+  rooms: Room[];
 }

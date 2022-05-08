@@ -21,4 +21,9 @@ export default class userController {
   public async signin(@Body() body: signinPayload): Promise<IUser> {
     return this.userService.getUser(body);
   }
+
+  @Get("/checkroom")
+  public async check(@Body() body: any): Promise<IUser> {
+    return this.userService.checkRoom(body);
+  }
 }

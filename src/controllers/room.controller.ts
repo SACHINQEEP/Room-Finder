@@ -1,4 +1,4 @@
-import { Body, Patch, Post, Route, Tags } from "tsoa";
+import { Body, Delete, Get, Patch, Post, Route, Tags } from "tsoa";
 import addRoomPayload from "../interface/requests/roomPayload";
 import { IRoom } from "../interface/responce/IRoom";
 import roomService from "../services/room.service";
@@ -16,8 +16,18 @@ export default class roomController {
     return this.roomService.createRoom(body);
   }
 
-  @Patch("/updateroom/:id")
+  @Patch("/updateroom/")
   public async updateRoom(@Body() body: addRoomPayload): Promise<IRoom> {
     return this.roomService.updateRoom(body);
+  }
+
+  @Get("/ownersroom")
+  public async checkRoom(@Body() body: addRoomPayload): Promise<IRoom> {
+    return this.roomService.checkRoom(body);
+  }
+
+  @Delete("/deleteroom")
+  public async deleteRoom(@Body() body: addRoomPayload): Promise<IRoom> {
+    return this.roomService.deleteRoom(body);
   }
 }

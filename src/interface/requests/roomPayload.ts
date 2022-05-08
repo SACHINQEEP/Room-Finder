@@ -12,7 +12,8 @@ import { IsString, IsDefined } from "class-validator";
  * "movein":"Booked",
  * "location":"Indore MP",
  * "prefferencetype":"Any",
- * "graphic":"pic.jpg"
+ * "graphic":"pic.jpg",
+ * "userId":"1"
  */
 
 export default class addRoomPayload {
@@ -36,4 +37,6 @@ export default class addRoomPayload {
   @Expose() @IsDefined() @IsString() prefferencetype: string;
 
   @Expose() @IsDefined() @IsString() graphic: string;
+
+  @Expose() @IsDefined() users: number;
 }
