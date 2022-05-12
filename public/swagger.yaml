@@ -1,113 +1,397 @@
 components:
-  examples: {}
-  headers: {}
-  parameters: {}
-  requestBodies: {}
-  responses: {}
-  schemas:
-    User:
-      properties:
-        id:
-          type: number
-          format: double
-        firstname:
-          type: string
-        lastname:
-          type: string
-        username:
-          type: string
-        usertype:
-          type: string
-        age:
-          type: number
-          format: double
-        number:
-          type: number
-          format: double
-        email:
-          type: string
-        password:
-          type: string
-        address:
-          type: string
-        lastlogin:
-          type: string
-      required:
-        - id
-        - firstname
-        - lastname
-        - username
-        - usertype
-        - age
-        - number
-        - email
-        - address
-        - lastlogin
-      type: object
-      additionalProperties: false
-    IUser:
-      properties:
-        user:
-          $ref: "#/components/schemas/User"
-        token:
-          type: string
-      required:
-        - user
-        - token
-      type: object
-      additionalProperties: false
-    signupPayload:
-      description: "\"firstname\":\"Sachin\",\r\n\"lastname\": \"Patel\",\r\n\"username\": \"sachinqeep\",\r\n\"usertype\": \"Owner\" ,\r\n\"password\": sachin@1330,\r\n\"token\": \"AAAA9MUL8aI:APA91bG10taM95MS7jOdbOiPLg6rE7gBw04T5amtbQaS1KbVt2Mf5P5r801ovOOEaFVTF9U0zucknzA5Lw1VRyxtYKtkpRpMbo57Y_CQ1iMQmMJd1pFEgov0sdBgfV8UEBHZm2WY1uc8\""
-      properties:
-        firstname:
-          type: string
-        lastname:
-          type: string
-        username:
-          type: string
-        usertype:
-          type: string
-        password:
-          type: string
-        token:
-          type: string
-      required:
-        - firstname
-        - lastname
-        - username
-        - usertype
-        - password
-        - token
-      type: object
-      additionalProperties: false
-  securitySchemes: {}
+    examples: {}
+    headers: {}
+    parameters: {}
+    requestBodies: {}
+    responses: {}
+    schemas:
+        User:
+            properties:
+                id:
+                    type: number
+                    format: double
+                firstname:
+                    type: string
+                lastname:
+                    type: string
+                username:
+                    type: string
+                usertype:
+                    type: string
+                number:
+                    type: number
+                    format: double
+                email:
+                    type: string
+                password:
+                    type: string
+                address:
+                    type: string
+                lastlogin:
+                    type: string
+                rooms:
+                    items:
+                        $ref: '#/components/schemas/Room'
+                    type: array
+            required:
+                - id
+                - firstname
+                - lastname
+                - username
+                - usertype
+                - number
+                - email
+                - address
+                - lastlogin
+                - rooms
+            type: object
+            additionalProperties: false
+        Room:
+            properties:
+                id:
+                    type: number
+                    format: double
+                name:
+                    type: string
+                discription:
+                    type: string
+                price:
+                    type: number
+                    format: double
+                deposit:
+                    type: number
+                    format: double
+                amenitites:
+                    type: string
+                flate:
+                    type: string
+                movein:
+                    type: string
+                location:
+                    type: string
+                prefferencetype:
+                    type: string
+                graphic:
+                    type: string
+                    format: byte
+                user:
+                    $ref: '#/components/schemas/User'
+            required:
+                - id
+                - name
+                - discription
+                - price
+                - deposit
+                - amenitites
+                - flate
+                - movein
+                - location
+                - prefferencetype
+                - graphic
+                - user
+            type: object
+            additionalProperties: false
+        IUser:
+            properties:
+                user:
+                    $ref: '#/components/schemas/User'
+                token:
+                    type: string
+            required:
+                - user
+                - token
+            type: object
+            additionalProperties: false
+        signupPayload:
+            description: "\"firstname\":\"Sachin\",\r\n\"lastname\": \"Patel\",\r\n\"username\": \"sachinqeep\",\r\n\"usertype\": \"Owner\" ,\r\n\"password\": sachin@1330,\r\n\"token\": \"AAAA9MUL8aI:APA91bG10taM95MS7jOdbOiPLg6rE7gBw04T5amtbQaS1KbVt2Mf5P5r801ovOOEaFVTF9U0zucknzA5Lw1VRyxtYKtkpRpMbo57Y_CQ1iMQmMJd1pFEgov0sdBgfV8UEBHZm2WY1uc8\""
+            properties:
+                firstname:
+                    type: string
+                lastname:
+                    type: string
+                username:
+                    type: string
+                usertype:
+                    type: string
+                password:
+                    type: string
+                token:
+                    type: string
+            required:
+                - firstname
+                - lastname
+                - username
+                - usertype
+                - password
+                - token
+            type: object
+            additionalProperties: false
+        signinPayload:
+            description: "\"email\":\"patelsachinsp269@gmail.com\",\r\n\"usertype\":\"User\"\r\n\"password\": \"sachin@1330\",\r\n\"token\": \"AAAA9MUL8aI:APA91bG10taM95MS7jOdbOiPLg6rE7gBw04T5amtbQaS1KbVt2Mf5P5r801ovOOEaFVTF9U0zucknzA5Lw1VRyxtYKtkpRpMbo57Y_CQ1iMQmMJd1pFEgov0sdBgfV8UEBHZm2WY1uc8\""
+            properties:
+                email:
+                    type: string
+                usertype:
+                    type: string
+                password:
+                    type: string
+            required:
+                - email
+                - usertype
+                - password
+            type: object
+            additionalProperties: false
+        IUserList:
+            properties:
+                user:
+                    $ref: '#/components/schemas/User'
+            required:
+                - user
+            type: object
+            additionalProperties: false
+        userType:
+            enum:
+                - User
+                - Owner
+            type: string
+        userPayload:
+            properties:
+                userType:
+                    $ref: '#/components/schemas/userType'
+                limit:
+                    type: number
+                    format: double
+                Offset:
+                    type: number
+                    format: double
+            required:
+                - userType
+                - limit
+                - Offset
+            type: object
+            additionalProperties: false
+        IRoom:
+            properties:
+                room:
+                    $ref: '#/components/schemas/Room'
+            required:
+                - room
+            type: object
+            additionalProperties: false
+        addRoomPayload:
+            description: "\"id\":1\r\n \"name\":\"Devine Room\",\r\n\"discription\": \"some details about the room\",\r\n\"price\":10000,\r\n\"deposit\":30000,\r\n\"amenitites\": \"Nonfurnished\",\r\n\"flate\":\"Room\",\r\n\"movein\":\"Booked\",\r\n\"location\":\"Indore MP\",\r\n\"prefferencetype\":\"Any\",\r\n\"graphic\":\"pic.jpg\",\r\n\"userId\":\"1\""
+            properties:
+                id:
+                    type: number
+                    format: double
+                name:
+                    type: string
+                discription:
+                    type: string
+                price:
+                    type: number
+                    format: double
+                deposit:
+                    type: number
+                    format: double
+                amenitites:
+                    type: string
+                flate:
+                    type: string
+                movein:
+                    type: string
+                location:
+                    type: string
+                prefferencetype:
+                    type: string
+                graphic:
+                    type: string
+                users:
+                    type: number
+                    format: double
+            required:
+                - id
+                - name
+                - discription
+                - price
+                - deposit
+                - amenitites
+                - flate
+                - movein
+                - location
+                - prefferencetype
+                - graphic
+                - users
+            type: object
+            additionalProperties: false
+    securitySchemes: {}
 info:
-  swagger: 2.0
-  title: MyProject
-  version: 0.0.1
-  description: "Awesome project developed with TypeORM."
-  contact: {}
+    title: MyProject
+    version: 0.0.1
+    description: 'Awesome project developed with TypeORM.'
+    contact: {}
 openapi: 3.0.0
 paths:
-  /users/signup:
-    post:
-      operationId: Signup
-      responses:
-        "200":
-          description: Ok
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/IUser"
-      tags:
-        - User
-      security: []
-      parameters: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/signupPayload"
+    /users/signup:
+        post:
+            operationId: Signup
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IUser'
+            tags:
+                - User
+            security: []
+            parameters: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/signupPayload'
+    /users/signin:
+        post:
+            operationId: Signin
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IUser'
+            tags:
+                - User
+            security: []
+            parameters: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/signinPayload'
+    /users/check-room:
+        post:
+            operationId: Check
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IUser'
+            tags:
+                - User
+            security: []
+            parameters: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema: {}
+    /users/get-user-list:
+        post:
+            operationId: GetUserList
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IUserList'
+            tags:
+                - User
+            security: []
+            parameters: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/userPayload'
+    /rooms:
+        post:
+            operationId: AddRoom
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IRoom'
+            tags:
+                - Room
+            security: []
+            parameters: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/addRoomPayload'
+    /rooms/update-room:
+        patch:
+            operationId: UpdateRoom
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IRoom'
+            tags:
+                - Room
+            security: []
+            parameters: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/addRoomPayload'
+    /rooms/owner-room:
+        post:
+            operationId: CheckRoom
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IRoom'
+            tags:
+                - Room
+            security: []
+            parameters: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/addRoomPayload'
+    /rooms/delete-room:
+        delete:
+            operationId: DeleteRoom
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/IRoom'
+            tags:
+                - Room
+            security: []
+            parameters: []
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            additionalProperties: false
+                            type: object
 servers:
-  - url: /
+    -
+        url: /

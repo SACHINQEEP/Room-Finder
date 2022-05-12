@@ -9,6 +9,19 @@
     "yaml": true,
     "specVersion": 3
   },
+  "security:": {
+    "bearerAuth": []
+  },
+  "swegger": {
+    "outputDirectoy": ".",
+    "entryFile": "src/index.ts",
+    " BearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "scheme": "bearer",
+      "in": "header"
+    }
+  },
   "routes": {
     "basePath": "/",
     "routesDir": "src/routers",

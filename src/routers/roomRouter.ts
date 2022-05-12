@@ -13,14 +13,14 @@ roomRouter.post("/", async (req, res) => {
     const response = await controller.addRoom(req.body);
 
     ires.success = "Success";
-    ires.statuscode = 200;
+    ires.statuscode = 201;
     ires.message = "Room Created";
     ires.data = response;
 
     res.send(ires);
   } catch (err) {
-    ires.success;
-    ires.statuscode;
+    ires.success = "Fail";
+    ires.statuscode = 400;
     ires.message = "Room Not created due to some error";
     ires.error = err.message;
 
@@ -28,19 +28,19 @@ roomRouter.post("/", async (req, res) => {
   }
 });
 
-roomRouter.patch("/updateroom", async (req, res) => {
+roomRouter.patch("/update-room", async (req, res) => {
   try {
     const responce = await controller.updateRoom(req.body);
     console.log(responce);
     ires.success = "Success";
-    ires.statuscode = 200;
+    ires.statuscode = 201;
     ires.message = "Room Updated";
     ires.data = responce;
 
     res.send(ires);
   } catch (err) {
-    ires.success;
-    ires.statuscode;
+    ires.success = "Fail";
+    ires.statuscode = 400;
     ires.message = "Room not updated yet";
     ires.error = err.message;
 
@@ -48,7 +48,7 @@ roomRouter.patch("/updateroom", async (req, res) => {
   }
 });
 
-roomRouter.delete("/deleteroom", async (req, res) => {
+roomRouter.delete("/delete-room", async (req, res) => {
   try {
     const responce = await controller.deleteRoom(req.body);
 
@@ -59,8 +59,8 @@ roomRouter.delete("/deleteroom", async (req, res) => {
 
     res.send(ires);
   } catch (err) {
-    ires.success;
-    ires.statuscode;
+    ires.success = "Fail";
+    ires.statuscode = 400;
     ires.message = "Room not Found";
     ires.error = err.message;
 
@@ -68,7 +68,7 @@ roomRouter.delete("/deleteroom", async (req, res) => {
   }
 });
 
-roomRouter.get("/ownersroom", async (req, res) => {
+roomRouter.post("/owner-room", async (req, res) => {
   try {
     const responce = await controller.checkRoom(req.body);
     console.log(responce);

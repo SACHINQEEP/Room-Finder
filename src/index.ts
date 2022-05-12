@@ -11,13 +11,15 @@ const app = express();
 
 app.use(bodyparser.json());
 app.use(express.json());
+app.use(morgan("dev"));
 
 app.use(router);
+app.use(express.static("public"));
 
 app.use(
   "/docs",
   swaggerUi.serve,
-  swaggerUi.setup({
+  swaggerUi.setup(undefined, {
     swaggerOptions: {
       url: "/swagger.yaml",
     },
@@ -25,8 +27,6 @@ app.use(
 );
 
 app.use(cors);
-
-app.use(morgan("dev"));
 
 app.use(express.static("public"));
 

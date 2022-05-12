@@ -1,6 +1,7 @@
 import { Room } from "../entity/Room";
 import { AppDataSource } from "../data-source";
 import { DeleteResult, UpdateResult } from "typeorm";
+import addRoomPayload from "../interface/requests/roomPayload";
 
 function repo() {
   return AppDataSource.getRepository(Room);

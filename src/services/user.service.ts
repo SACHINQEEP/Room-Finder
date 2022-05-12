@@ -6,9 +6,13 @@ import {
   getUser,
   updateUser,
   checkRoom,
+  getUsers,
 } from "../repository/user.repository";
 import signinPayload from "../interface/requests/signinPayload";
-import addRoomPayload from "../interface/requests/roomPayload";
+import userPayload from "../interface/requests/userPayload";
+import { IUserList } from "../interface/responce/IuserList";
+import { userType } from "../enum/userType";
+// import addRoomPayload from "../interface/requests/roomPayload";
 
 export default class userService {
   public async createUser(body: signupPayload): Promise<IUser> {
@@ -45,10 +49,25 @@ export default class userService {
 
     user = await checkRoom(user.id);
 
-    if (!user) throw new Error();
+    if (!user) throw new Error("User not found");
 
     const token = jwtWebToken(user.id);
 
     return { user, token };
+  }
+
+  public async getList(body: userPayload): Promise<IUserList> {
+    // let user = await getUsers(body)
+
+    if (body.userType == "Owner") {
+      let user: any = await getUsers(body);
+
+      return { user };
+    }
+    if (body.userType == "User") {
+      let user: any = await getUsers(body);
+
+      return { user };
+    }
   }
 }

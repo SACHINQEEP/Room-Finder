@@ -33,7 +33,7 @@ export default class roomService {
     return { room };
   }
 
-  public async deleteRoom(body: addRoomPayload): Promise<IRoom> {
+  public async deleteRoom(body: any): Promise<IRoom> {
     let room = await getRoom({
       id: body.id,
     });

@@ -65,12 +65,27 @@ userRouter.get("/validate", checkJWT, async (req, res) => {
   }
 });
 
-userRouter.get("/checkroom", async (req, res) => {
+userRouter.post("/check-room", async (req, res) => {
   try {
     const responce = await controller.check(req.body);
     ires.success = "Success";
     ires.statuscode = 200;
     ires.message = "Room List";
+    ires.data = responce;
+  } catch (err) {
+    ires.success = "Fail";
+    ires.statuscode = 400;
+    ires.message = err.message;
+  }
+  return res.send(ires);
+});
+
+userRouter.post("/get-user-list", async (req, res) => {
+  try {
+    const responce = await controller.getUserList(req.body);
+    ires.success = "Success";
+    ires.statuscode = 200;
+    ires.message = "User List";
     ires.data = responce;
   } catch (err) {
     ires.success = "Fail";

@@ -1,6 +1,7 @@
 import { User } from "../entity/User";
 import { AppDataSource } from "../data-source";
 import { InsertResult, UpdateResult } from "typeorm";
+import userPayload from "../interface/requests/userPayload";
 
 // Definign the deta base to get Repository from user tables
 function repo() {
@@ -30,4 +31,19 @@ export const checkRoom = async function (id: any): Promise<User> {
     .leftJoinAndSelect("user.rooms", "rooms")
     .where("user.id =:rooms", { rooms: id })
     .getOne();
+};
+
+export const getUsers = async function (
+  body: userPayload
+): Promise<[User[], number]> {
+  return await repo().findAndCount({
+    where: {
+      usertype: body.userType,
+    },
+    order: {
+      id: "ASC",
+    },
+    skip: body.Offset ? body.Offset : 0,
+    take: body.limit ? body.limit : 10,
+  });
 };
